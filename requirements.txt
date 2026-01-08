@@ -1,0 +1,12 @@
+torch
+transformers
+datasets
+pandas
+numpy
+scikit-learn
+imbalanced-learn
+matplotlib
+seaborn
+streamlit
+sqlalchemy
+openpyxl

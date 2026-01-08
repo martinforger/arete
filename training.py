@@ -39,15 +39,15 @@ def entrenar_modelo(df_balanceado):
         output_dir="./resultados",
         eval_strategy="epoch",
         save_strategy="epoch",
-        num_train_epochs=15,                    # Más épocas para aprender mejor
-        learning_rate=2e-5,                     # Learning rate óptimo para BERT
-        per_device_train_batch_size=8,          # Batch pequeño = más actualizaciones
+        num_train_epochs=15,                    
+        learning_rate=2e-5,                     
+        per_device_train_batch_size=8,          
         per_device_eval_batch_size=8,
-        warmup_ratio=0.1,                       # Calentamiento gradual del LR
-        weight_decay=0.01,                      # Regularización para evitar overfitting
+        warmup_ratio=0.1,                       
+        weight_decay=0.01,                      
         load_best_model_at_end=True,
-        metric_for_best_model="eval_loss",      # Seleccionar mejor modelo por pérdida
-        logging_steps=10,                       # Ver progreso más frecuentemente
+        metric_for_best_model="eval_loss",      
+        logging_steps=10,                       
     )
 
     # 6. Iniciar el entrenador

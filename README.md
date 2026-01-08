@@ -2,6 +2,22 @@
 
 Sistema de Inteligencia Artificial para la clasificación semántica de textos clásicos mediante Fine-Tuning de modelos de lenguaje (BERT). Desarrollado para investigadores en humanidades, con interfaz gráfica web e integración de base de datos SQL.
 
+## 🤗 Modelo en Hugging Face
+
+El modelo entrenado está disponible públicamente en Hugging Face Hub:
+
+🔗 **[martinforger/arete](https://huggingface.co/martinforger/arete)**
+
+La aplicación web descarga automáticamente el modelo desde la nube, por lo que no necesitas tener los archivos del modelo localmente.
+
+```python
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+
+# Cargar el modelo desde Hugging Face
+tokenizer = AutoTokenizer.from_pretrained("martinforger/arete")
+model = AutoModelForSequenceClassification.from_pretrained("martinforger/arete")
+```
+
 ## 🎯 Categorías de Clasificación
 
 El modelo clasifica fragmentos de textos clásicos en tres ejes temáticos:
@@ -19,8 +35,6 @@ arete/
 ├── data/
 │   ├── datos.xlsx              # Datos originales en Excel
 │   └── corpus_clasico.db       # Base de datos SQLite
-├── modelo_final/               # Modelo entrenado (generado)
-├── resultados/                 # Checkpoints de entrenamiento
 ├── migration.py                # Migración Excel → SQLite
 ├── preprocessing.py            # Limpieza y balanceo de datos
 ├── training.py                 # Entrenamiento del modelo BERT
@@ -28,81 +42,60 @@ arete/
 └── app.py                      # Interfaz web con Streamlit
 ```
 
+> **Nota:** El modelo entrenado se almacena en Hugging Face Hub, no en este repositorio.
+
 ## ⚙️ Requisitos
 
-### Python
 - Python 3.10 o superior
 
-### Dependencias
-```bash
-pip install torch transformers datasets pandas numpy scikit-learn imbalanced-learn matplotlib seaborn streamlit sqlalchemy openpyxl
-```
-
-O crear un archivo `requirements.txt`:
-```
-torch
-transformers
-datasets
-pandas
-numpy
-scikit-learn
-imbalanced-learn
-matplotlib
-seaborn
-streamlit
-sqlalchemy
-openpyxl
-```
-
-E instalar con:
+### Instalación
 ```bash
 pip install -r requirements.txt
 ```
 
 ## 🚀 Guía de Ejecución
 
-### 1. Migrar datos (solo primera vez)
+### 1. Ejecutar la aplicación web (rápido)
 
-Si tienes los datos en Excel (`data/datos.xlsx`), migra a SQLite:
-
-```bash
-python migration.py
-```
-
-Esto creará `data/corpus_clasico.db` con la tabla `textos_clasicos`.
-
-### 2. Entrenar el modelo
-
-```bash
-python training.py
-```
-
-**Salida esperada:**
-- Preprocesamiento y balanceo de datos
-- Entrenamiento del modelo BERT (15 épocas, ~10 minutos)
-- Modelo guardado en `./modelo_final/`
-
-### 3. Evaluar el modelo
-
-```bash
-python evaluation.py
-```
-
-**Salida esperada:**
-- Informe de clasificación (precision, recall, F1-score)
-- Matriz de confusión visual
-
-### 4. Ejecutar la aplicación web
+Si solo quieres usar la aplicación, ejecuta directamente:
 
 ```bash
 streamlit run app.py
 ```
 
+El modelo se descargará automáticamente desde Hugging Face Hub la primera vez.
+
 Abre tu navegador en `http://localhost:8501` para usar la interfaz.
 
-## 📊 Métricas del Modelo
+---
 
-El modelo actual alcanza las siguientes métricas:
+### 2. Re-entrenar el modelo (opcional)
+
+Si deseas entrenar el modelo desde cero:
+
+#### 2.1 Migrar datos (solo primera vez)
+
+```bash
+python migration.py
+```
+
+#### 2.2 Entrenar el modelo
+
+```bash
+python training.py
+```
+
+- Preprocesamiento y balanceo de datos
+- Entrenamiento del modelo BERT (15 épocas, ~10 minutos)
+- Modelo guardado en `./modelo_final/`
+
+#### 2.3 Evaluar el modelo
+
+```bash
+python evaluation.py
+```
+
+## 📊 Métricas del Modelo
 
 | Categoría | Precision | Recall | F1-Score |
 |-----------|-----------|--------|----------|
@@ -112,8 +105,6 @@ El modelo actual alcanza las siguientes métricas:
 | **Promedio ponderado** | **0.97** | **0.97** | **0.97** |
 
 ## 🔧 Configuración del Entrenamiento
-
-Los hiperparámetros actuales en `training.py`:
 
 ```python
 TrainingArguments(

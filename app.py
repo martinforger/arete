@@ -6,7 +6,7 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 # 1. Configuración de la página (Estética)
 st.set_page_config(page_title="Clasificador de Textos Clásicos", page_icon="📜", layout="centered")
 
-# Estilo CSS personalizado para mejorar la ergonomía visual
+# Estilo CSS personalizado
 st.markdown("""
     <style>
     .main { background-color: #f5f7f9; }
@@ -16,12 +16,20 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # 2. Cargar el modelo (Usamos cache para que no se recargue cada vez que el usuario haga clic)
+
 @st.cache_resource
 def cargar_modelo():
-    ruta = "./modelo_final"
-    tokenizer = AutoTokenizer.from_pretrained(ruta)
-    model = AutoModelForSequenceClassification.from_pretrained(ruta)
+    # USO DEL MODELO ENTRENADO EN LA NUBE
+    # Uso el ID del repositorio en la nube
+    ruta_nube = "martinforger/arete" 
+    tokenizer = AutoTokenizer.from_pretrained(ruta_nube)
+    model = AutoModelForSequenceClassification.from_pretrained(ruta_nube)
     return tokenizer, model
+    # SI SE DESEA ENTRENAR EN LOCAL COMENTAR LO DE ARRIBA Y DESCOMENTAR LO DE ABAJO
+    # ruta = "./modelo_final"
+    # tokenizer = AutoTokenizer.from_pretrained(ruta)
+    # model = AutoModelForSequenceClassification.from_pretrained(ruta)
+    # return tokenizer, model
 
 tokenizer, model = cargar_modelo()
 id2label = model.config.id2label

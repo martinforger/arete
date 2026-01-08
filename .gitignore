@@ -209,3 +209,4 @@ __marimo__/
 resultados/
 *.db
 modelo_final/
+upload.py

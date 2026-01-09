@@ -2,6 +2,12 @@
 
 Sistema de Inteligencia Artificial para la clasificación semántica de textos clásicos mediante Fine-Tuning de modelos de lenguaje (BERT). Desarrollado para investigadores en humanidades, con interfaz gráfica web e integración de base de datos SQL.
 
+## 🌐 Demo en Vivo
+
+La aplicación está desplegada en Streamlit Cloud:
+
+🔗 **[aretee.streamlit.app](https://aretee.streamlit.app/)**
+
 ## 🤗 Modelo en Hugging Face
 
 El modelo entrenado está disponible públicamente en Hugging Face Hub:
@@ -9,6 +15,7 @@ El modelo entrenado está disponible públicamente en Hugging Face Hub:
 🔗 **[martinforger/arete](https://huggingface.co/martinforger/arete)**
 
 La aplicación web descarga automáticamente el modelo desde la nube, por lo que no necesitas tener los archivos del modelo localmente.
+
 
 ```python
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
